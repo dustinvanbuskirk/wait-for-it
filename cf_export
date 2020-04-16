@@ -1,0 +1,23 @@
+set -e
+IFS=''
+arg=
+for arg in $@; do
+    case "$arg" in
+    
+        *=*)
+        printf "Exporting $arg
+" 
+        echo "$arg" >> /codefresh/volume/env_vars_to_export
+        
+        ;;
+        
+        *)
+        eval 'varValue=$'"$arg"
+        printf "Exporting $arg=$varValue
+" 
+        echo "$arg=$varValue" >> /codefresh/volume/env_vars_to_export
+        
+        
+    esac
+
+done
